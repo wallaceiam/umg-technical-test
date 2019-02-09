@@ -25,6 +25,10 @@ dotnet test
 
 ## General comments and findings
 
+Because this is a small data set, I have not looked to optimizing the search but rather just for 
+
+I have not provided tests for the Repositories as a) they are simple wrappers around third-party libraries and b) there is no business logic contained within. I would have liked to use async/await with the file IO but as CsvHelper doesn't require it to retrieve all the records and again due to the small data set - I have obmitted it. It this was connected to a SQL/no-SQL or some other data store than I would have definitely used async methods to retrieve the data.
+
 The date formatting and parsing seems really unneccessary and I'm not sure what skill it is actually testing from the candidate.  Using YYYY-MM-dd would greatly simplify this test.
 
 Similar to the dates is the command input - why can't this be parameterized? ie, 
@@ -34,7 +38,7 @@ dotnet run -partner ITunes -effective 2012-03-01
 
 There is a lot, IMHO, of unnecessary code and tests that has had to be writen to handle just these two things where in the real world a quick conversation could have avoid this. 
 
-Because this is a small data set, I have not 
+I have assumed all dates are in the local timezone from where the application is run.
 
 
 ## Provided Specification

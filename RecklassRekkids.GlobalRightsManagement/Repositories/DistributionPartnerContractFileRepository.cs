@@ -11,8 +11,8 @@ namespace RecklassRekkids.GlobalRightsManagement.Repositories
 {
     public class DistributionPartnerContractFileRepository : IRepository<DistributionPartnerContract>
     {
-        private readonly GRMApplicationOptions _options;
-        public DistributionPartnerContractFileRepository(IOptions<GRMApplicationOptions> options)
+        private readonly GRMOptions _options;
+        public DistributionPartnerContractFileRepository(IOptions<GRMOptions> options)
         {
             _options = options?.Value ?? 
                 throw new ArgumentNullException(nameof(options));

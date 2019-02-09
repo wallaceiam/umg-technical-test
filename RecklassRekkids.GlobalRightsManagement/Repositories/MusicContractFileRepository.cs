@@ -12,8 +12,8 @@ namespace RecklassRekkids.GlobalRightsManagement.Repositories
 {
     public class MusicContractFileRepository : IRepository<MusicContract>
     {
-        private readonly GRMApplicationOptions _options;
-        public MusicContractFileRepository(IOptions<GRMApplicationOptions> options)
+        private readonly GRMOptions _options;
+        public MusicContractFileRepository(IOptions<GRMOptions> options)
         {
             _options = options?.Value ??
                 throw new ArgumentNullException(nameof(options));

@@ -28,7 +28,7 @@ namespace RecklassRekkids.GlobalRightsManagement.Services
                 .OrderBy(x => x.Artist)
                 .ThenByDescending(x => x.StartDate);
 
-            return availableContracts;
+            return availableContracts.ToList();
         }
     }
 }

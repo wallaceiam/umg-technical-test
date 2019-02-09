@@ -25,7 +25,7 @@ namespace RecklassRekkids.GlobalRightsManagement.Services
 
             DateTime date;
             var partner = match.Groups[1].Value.Trim();
-            var effectiveDate = match.Groups[2].Value.TryParseDate(out date) ? date : new DateTime();
+            var effectiveDate = match.Groups[2].Value.TryParseDate(out date) ? date : throw new Exception($"Invalid filter ${searchFilter}");
 
             var filter = new ProductFilterBuilder();
             filter._filter = (m, d) =>

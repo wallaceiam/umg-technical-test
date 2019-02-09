@@ -17,12 +17,13 @@ namespace RecklassRekkids.GlobalRightsManagement
             _serviceProvider = serviceProvider ?? throw new ArgumentNullException(nameof(serviceProvider));
         }
 
-        public static Application Build()
+        public static Application Build(IServiceProvider serviceProvider = null)
         {
-            var serviceProvider = new ServiceCollection()
+            var sp = serviceProvider ?? new ServiceCollection()
                     .AddTransient<IRepository<MusicContract>, MusicContractFileRepository>()
                     .AddTransient<IRepository<DistributionPartnerContract>, DistributionPartnerContractFileRepository>()
-                    .Configure<GRMApplicationOptions>(x =>
+                    .AddTransient<IFancyUI, FancyConsoleUI>()
+                    .Configure<GRMOptions>(x =>
                     {
                         x.DistributionPartnerContractsFileName = "./Data/DistributionPartnerContracts.csv";
                         x.MusicContractsFileName = "./Data/MusicContracts.csv";
@@ -31,24 +32,22 @@ namespace RecklassRekkids.GlobalRightsManagement
                     .AddTransient<IProductService, ProductService>()
                     .BuildServiceProvider();
 
-            return new Application(serviceProvider);
+            return new Application(sp);
         }
 
         public Application Run(string[] args)
         {
             var searchTerm = args.Any() ? args[0] : "YouTube 27th Dec 2012";
             var service = _serviceProvider.GetService<IProductService>();
+            var fancyUI = _serviceProvider.GetService<IFancyUI>();
 
-            var filter = ProductFilterBuilder.ParseCommand(searchTerm).Build();
-            if (filter != null)
-            {
-                var contracts = service.GetMusicContracts(filter);
+            var filter = ProductFilterBuilder
+                .ParseCommand(searchTerm)
+                .Build();
 
-                foreach (var c in contracts)
-                {
-                    Console.WriteLine($"{c.Artist}|{c.Title}|{string.Join(',', c.Usages)}|{c.StartDate.FormatDate()}|{c.EndDate.FormatDate()}");
-                }
-            }
+            var contracts = service.GetMusicContracts(filter);
+
+            fancyUI.Display(contracts);
             return this;
         }
     }

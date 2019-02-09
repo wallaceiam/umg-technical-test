@@ -9,9 +9,11 @@ namespace RecklassRekkids.GlobalRightsManagement.Extensions
             @"d\s\t MMM yyyy",
             @"d\t\h MMM yyyy",
             @"d\r\d MMM yyyy",
+            @"d\n\d MMM yyyy",
             @"d\s\t MMMM yyyy",
             @"d\t\h MMMM yyyy",
-            @"d\r\d MMMM yyyy"
+            @"d\r\d MMMM yyyy",
+            @"d\n\d MMMM yyyy"
         };
 
         public static bool TryParseDate(this string dateTime, out DateTime date) =>
@@ -26,8 +28,8 @@ namespace RecklassRekkids.GlobalRightsManagement.Extensions
 
         public static string AsOrdinal(this int number)
         {
-            if (number < 0)
-                throw new ArgumentOutOfRangeException("number");
+            if (number <= 0 || number > 31)
+                throw new ArgumentOutOfRangeException(nameof(number));
 
             var work = number.ToString("n0");
 

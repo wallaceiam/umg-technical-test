@@ -5,7 +5,7 @@ using System.Text;
 
 namespace RecklassRekkids.GlobalRightsManagement
 {
-    public class GRMApplicationOptions
+    public class GRMOptions
     {
         public string DistributionPartnerContractsFileName { get; internal set; }
         public string MusicContractsFileName { get; internal set; }
