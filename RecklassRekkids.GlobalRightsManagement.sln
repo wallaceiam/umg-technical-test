@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.28307.329
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecklassRekkids.GlobalRightsManagement", "RecklassRekkids.GlobalRightsManagement\RecklassRekkids.GlobalRightsManagement.csproj", "{4EFE303B-B21D-4661-ADBC-E3879C187FA5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecklassRekkids.GlobalRightsManagement.Tests", "RecklassRekkids.GlobalRightsManagement.Tests\RecklassRekkids.GlobalRightsManagement.Tests.csproj", "{B5518D59-97CC-4974-B0A7-9DA4C1BE7C42}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{4EFE303B-B21D-4661-ADBC-E3879C187FA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4EFE303B-B21D-4661-ADBC-E3879C187FA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4EFE303B-B21D-4661-ADBC-E3879C187FA5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B5518D59-97CC-4974-B0A7-9DA4C1BE7C42}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5518D59-97CC-4974-B0A7-9DA4C1BE7C42}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5518D59-97CC-4974-B0A7-9DA4C1BE7C42}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5518D59-97CC-4974-B0A7-9DA4C1BE7C42}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
