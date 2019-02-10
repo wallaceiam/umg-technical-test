@@ -26,9 +26,8 @@ namespace RecklassRekkids.GlobalRightsManagement.Filters
             if (!match.Success && match.Groups.Count != 3)
                 throw new Exception($"Invalid search filter '${searchFilter}'. Please provide in the format '<partner> <effective date>'");
 
-            DateTime date;
             var parnter = match.Groups[1].Value.Trim();
-            var effectiveDate = match.Groups[2].Value.Trim().TryParseDate(out date) ? date 
+            var effectiveDate = match.Groups[2].Value.Trim().TryParseDate(out DateTime date) ? date 
                 : throw new Exception($"Invalid effective data '${searchFilter}'. Please provide in the format 'd(st|nd|rd|th) MMM yyyy', ie '1st Mar 2019.");
 
             return From(parnter, effectiveDate);

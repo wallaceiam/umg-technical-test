@@ -49,8 +49,7 @@ namespace RecklassRekkids.GlobalRightsManagement.Repositories
                     .Name("Usages");
                 Map(m => m.StartDate)
                     .ConvertUsing(x => {
-                        DateTime dt;
-                        if (!x.GetField("StartDate").TryParseDate(out dt))
+                        if (!x.GetField("StartDate").TryParseDate(out DateTime dt))
                             throw new FieldValidationException(x.Context, "StartDate", $"Invalid Date {x.GetField("StartDate")}");
                         return dt;
                         })
@@ -59,8 +58,7 @@ namespace RecklassRekkids.GlobalRightsManagement.Repositories
                     .ConvertUsing(x => {
                         if (string.IsNullOrWhiteSpace(x.GetField("EndDate")))
                             return null;
-                        DateTime dt;
-                        if (!x.GetField("EndDate").TryParseDate(out dt))
+                        if (!x.GetField("EndDate").TryParseDate(out DateTime dt))
                             throw new FieldValidationException(x.Context, "EndDate", $"Invalid Date {x.GetField("EndDate")}");
                         return dt;
                     }).Name("EndDate");
