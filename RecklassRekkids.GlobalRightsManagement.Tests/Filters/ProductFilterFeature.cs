@@ -12,7 +12,7 @@ namespace RecklassRekkids.GlobalRightsManagement.Tests.Filters
     public class ProductFilterFeature
     {
         [Scenario]
-        public void ProductFilterConstructorExceptions()
+        public void ConstructorExceptionsScenario()
         {
             "Given".x(() => { });
             "When constructor is called with null parameters"
@@ -31,7 +31,7 @@ namespace RecklassRekkids.GlobalRightsManagement.Tests.Filters
 
         [Scenario]
         [MemberData(nameof(ProductFilterShouldRetainFunctionsData))]
-        public void ProductFilterShouldRetainFunctions(bool musicContractResult, bool distPartnerContractResult, bool expectedMusicContractResult, bool expectedDistPartnerContractResult)
+        public void ShouldRetainFunctionsScenario(bool musicContractResult, bool distPartnerContractResult, bool expectedMusicContractResult, bool expectedDistPartnerContractResult)
         {
             ProductFilter productFilter = null;
             bool actualMusicContractResult = false;

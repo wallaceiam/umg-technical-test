@@ -16,7 +16,7 @@ namespace RecklassRekkids.GlobalRightsManagement.Tests.Services
     public class ProductSearchServiceFeature
     {
         [Scenario]
-        public void ProductSearchServiceConstructorExceptions()
+        public void ConstructorExceptionScenario()
         {
             "Given".x(() => { });
             "When constructor is called with null parameters"
@@ -37,7 +37,7 @@ namespace RecklassRekkids.GlobalRightsManagement.Tests.Services
         }
 
         [Scenario]
-        public void ProductSearchServiceGetMusicContractsNoFilter()
+        public void GetMusicContractsNoFilterScenario()
         {
             var musicContractRepo = new Mock<IRepository<MusicContract>>();
             var distPartnerContractRepo = new Mock<IRepository<DistributionPartnerContract>>();
@@ -62,8 +62,8 @@ namespace RecklassRekkids.GlobalRightsManagement.Tests.Services
         }
 
         [Scenario]
-        [MemberData(nameof(ClientProvidedScenarioData))]
-        public void ProductSearchServiceGetMusicContractsHandlesClientProvidedData(string filterText, IEnumerable<MusicContract> musicContracts,
+        [MemberData(nameof(GetMusicContractsData))]
+        public void GetMusicContractsScenario(string filterText, IEnumerable<MusicContract> musicContracts,
             IEnumerable<DistributionPartnerContract> distributionPartnerContracts, string expectedSongs)
         {
             var musicContractRepo = new Mock<IRepository<MusicContract>>();
@@ -95,12 +95,14 @@ namespace RecklassRekkids.GlobalRightsManagement.Tests.Services
 
         #region Data 
 
-        public static IEnumerable<object[]> ClientProvidedScenarioData =>
+        public static IEnumerable<object[]> GetMusicContractsData =>
            new List<object[]>
            {
                 new object[] { "ITunes 1st March 2012", StaticData.MusicContracts, StaticData.DistributionPartnerContracts, "Black Mountain,Motor Mouth,Frisky (Live from SoHo),Miami 2 Ibiza" },
                 new object[] { "YouTube 1st April 2012", StaticData.MusicContracts, StaticData.DistributionPartnerContracts, "Motor Mouth,Frisky (Live from SoHo)" },
                 new object[] { "YouTube 27th Dec 2012", StaticData.MusicContracts, StaticData.DistributionPartnerContracts, "Christmas Special,Iron Horse,Motor Mouth,Frisky (Live from SoHo)" },
+                new object[] { "Vimeo 27th Dec 2012", StaticData.MusicContracts, StaticData.DistributionPartnerContracts, "" },
+                new object[] { "YouTube 27th Dec 1900", StaticData.MusicContracts, StaticData.DistributionPartnerContracts, "" },
 
            };
 
