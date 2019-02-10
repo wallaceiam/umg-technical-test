@@ -6,8 +6,8 @@ You will require .NET Core 2.2 SDK installed in order to run and test this submi
 https://dotnet.microsoft.com/download/dotnet-core/2.2
 
 ```
-git clone https://github.com/wallaceiam/RecklassRekkids.GlobalRightsManagement.git
-cd RecklassRekkids.GlobalRightsManagement
+git clone https://github.com/wallaceiam/UMG-Technical-Test.git
+cd UMG-Technical-Test
 dotnet build
 ```
 
