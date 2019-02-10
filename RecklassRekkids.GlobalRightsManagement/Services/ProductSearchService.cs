@@ -23,6 +23,7 @@ namespace RecklassRekkids.GlobalRightsManagement.Services
             if (filter != null)
             {
                 // I have left this as two separate linq queries for readability
+                
                 var distributionPartnerContracts = _distributionPartnerContractsRepo.GetAll()
                     .Where(d => filter.DistributionParnterContractFilter(d))
                     .Select(d => d.Usage)

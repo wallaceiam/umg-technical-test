@@ -25,18 +25,40 @@ dotnet test
 
 ## General comments and findings
 
-Because this is a small data set, I have not looked to optimizing the search but rather just for 
+I have tried to keep this console application as minimal as possible without violating SOLID/DRY principals and still fulfilling the requirements.
 
-I have not provided tests for the Repositories as a) they are simple wrappers around third-party libraries and b) there is no business logic contained within. I would have liked to use async/await with the file IO but as CsvHelper doesn't require it to retrieve all the records and again due to the small data set - I have obmitted it. It this was connected to a SQL/no-SQL or some other data store than I would have definitely used async methods to retrieve the data.
+Application Structure
 
-The date formatting and parsing seems really unneccessary and I'm not sure what skill it is actually testing from the candidate.  Using YYYY-MM-dd would greatly simplify this test.
++ Data            - Static reference data provided by the client
 
-Similar to the dates is the command input - why can't this be parameterized? ie, 
++ Extensions      - Helper methods for Strings and DateTime
+
++ Filters         - Used to build the search query
+
++ Models          - POCOs for Music and Distribution Partner Contracts
+
++ Repositories    - Data access & UI
+
++ Services        - Where the filter magic happens
+
+I have also obmitted logging and full on error handling in favour of brevity.
+
+I have not made the ProductFilter/ProductFilterBuilder/ProductSearchService as decoupled as I would have liked. This is mainly due to the fact that I tried to keep within the 2-3 hours and don't have requirements for all the ways in which the data could be searched/filtered so I didn't want to over engineer a solution. If application was to be expanded upon with additional criteria than this is one area I would want to focus more on.  (for example, Specification pattern seemed unnecessary and overkill at this time).
+
+Because this is a small data set, I have not looked at optimizing the search but rather opted for readability.
+
+Test have been completed using xUnit with xbehave.net, Moq and fluent assertions.
+
+I have not provided tests for the Repositories as a) they are simple wrappers around third-party libraries and b) there is no business logic contained within. I would have liked to use async/await with the file IO but as CsvHelper doesn't require it to retrieve all the records and again due to the small data set - I have obmitted it. It this application was connected to a SQL/noSQL/REST endpoint or some other data store than I would have definitely used async methods to retrieve the data.
+
+The date formatting and parsing seems really unneccessary and I'm not sure what skill it is actually testing but a recommendation would be to use a standard format like YYYY-MM-dd in order to greatly simplify this test.
+
+Similar to the dates is the command input - I would recommend this be parameterized? ie, 
 ```
 dotnet run -partner ITunes -effective 2012-03-01
 ```
 
-There is a lot, IMHO, of unnecessary code and tests that has had to be writen to handle just these two things where in the real world a quick conversation could have avoid this. 
+There is a lot, IMHO, of unnecessary code and tests that has had to be writen to handle just these two things where in the real world a quick conversation could have avoid this. Talk is cheat, code is expensive... :-)
 
 I have assumed all dates are in the local timezone from where the application is run.
 
