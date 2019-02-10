@@ -28,14 +28,14 @@ namespace RecklassRekkids.GlobalRightsManagement.Tests
                     .AddTransient<IRepository<MusicContract>>(x => mockMusicContractRepo.Object)
                     .AddTransient<IRepository<DistributionPartnerContract>>(x => mockDistributionPartnerContractFileRepository.Object)
                     .AddTransient<IFancyUI>(x => mockConsoleUI.Object)
-                    .AddTransient<IProductService, ProductService>()
+                    .AddTransient<IProductService, ProductSearchService>()
                     .BuildServiceProvider();
 
             Application application = Application.Build(serviceProvider);
 
             var actualSongs = string.Empty;
 
-            "Given the supplied aboive reference data"
+            "Given the supplied above reference data"
                 .x(() =>
                 {
                     mockMusicContractRepo.Setup(x => x.GetAll()).Returns(musicContracts);
@@ -46,20 +46,21 @@ namespace RecklassRekkids.GlobalRightsManagement.Tests
                     .Setup(x => x.Display(It.IsAny<IEnumerable<MusicContract>>()))
                     .Callback<IEnumerable<MusicContract>>((x) =>
                     {
-                        actualSongs += string.Join(',', x.Select(y => y.Title));
+                        actualSongs = string.Join(',', x.Select(y => y.Title));
                     });
                 });
-
             $"When user enters '{filter}'"
                 .x(() => { application.Run(new string[] { filter }); });
-
             $"Then the output is {expectedSongs}"
                 .x(() =>
                 {
-                    // if this was a production system then we should be asserting a lot more
+                    // if this was a production system then we should be asserting a lot more than just the song name
                     actualSongs.Should().Be(expectedSongs);
                 });
         }
+
+
+        #region Data 
 
         private static IEnumerable<MusicContract> MusicContracts =>
             new List<MusicContract>
@@ -89,6 +90,8 @@ namespace RecklassRekkids.GlobalRightsManagement.Tests
                 new object[] { "YouTube 27th Dec 2012", MusicContracts, DistributionPartnerContracts, "Christmas Special,Iron Horse,Motor Mouth,Frisky (Live from SoHo)" },
 
            };
+
+        #endregion
 
     }
 }

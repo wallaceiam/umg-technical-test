@@ -1,4 +1,5 @@
-﻿using RecklassRekkids.GlobalRightsManagement.Models;
+﻿using RecklassRekkids.GlobalRightsManagement.Filters;
+using RecklassRekkids.GlobalRightsManagement.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,6 +9,6 @@ namespace RecklassRekkids.GlobalRightsManagement.Services
 {
     public interface IProductService
     {
-        IEnumerable<MusicContract> GetMusicContracts(Func<MusicContract, IEnumerable<DistributionPartnerContract>, bool> filter);
+        IEnumerable<MusicContract> GetMusicContracts(ProductFilter filter);
     }
 }

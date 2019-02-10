@@ -11,7 +11,7 @@ namespace RecklassRekkids.GlobalRightsManagement.Tests.Extensions
     {
         [Scenario]
         [MemberData(nameof(TryParseDateData))]
-        public void TryParseDate(string stringToTest, bool expectedValidity, DateTime expectedDateTime)
+        public void TryParseDateScenarios(string stringToTest, bool expectedValidity, DateTime expectedDateTime)
         {
             DateTime actualDateTime = DateTime.MinValue;
             bool actualValidity = false;
@@ -22,7 +22,6 @@ namespace RecklassRekkids.GlobalRightsManagement.Tests.Extensions
                 {
                     actualValidity = stringToTest.TryParseDate(out actualDateTime);
                 });
-
             $"Then the output is {expectedDateTime:yyyy-MM-dd}"
                 .x(() =>
                 {
@@ -33,7 +32,7 @@ namespace RecklassRekkids.GlobalRightsManagement.Tests.Extensions
 
         [Scenario]
         [MemberData(nameof(AsOrdinalData))]
-        public void AsOrdinal(int dayToTest, string expectedString)
+        public void AsOrdinalScenarios(int dayToTest, string expectedString)
         {
             var actualString = string.Empty;
 
@@ -43,7 +42,6 @@ namespace RecklassRekkids.GlobalRightsManagement.Tests.Extensions
                 {
                     actualString = dayToTest.AsOrdinal();
                 });
-
             $"Then the output is {expectedString}"
                 .x(() =>
                 {
@@ -53,7 +51,7 @@ namespace RecklassRekkids.GlobalRightsManagement.Tests.Extensions
 
         [Scenario]
         [MemberData(nameof(AsOrdinalExceptionData))]
-        public void AsOrdinalOutOfRangeException(int dayToTest)
+        public void AsOrdinalOutOfRangeExceptionScenarios(int dayToTest)
         {
             $"Given {dayToTest}".x(() => { });
             "When FormatDate is called"
@@ -61,14 +59,13 @@ namespace RecklassRekkids.GlobalRightsManagement.Tests.Extensions
                 {
                     dayToTest.Invoking(x => x.AsOrdinal()).Should().Throw<ArgumentOutOfRangeException>();
                 });
-
             "Then exception should be thrown"
                 .x(() => { });
         }
 
         [Scenario]
         [MemberData(nameof(FormatDateData))]
-        public void FormatDate(DateTime dataTimeToTest, string expectedString)
+        public void FormatDateScenarios(DateTime dataTimeToTest, string expectedString)
         {
             var actualString = string.Empty;
 
@@ -78,7 +75,6 @@ namespace RecklassRekkids.GlobalRightsManagement.Tests.Extensions
                 {
                     actualString = dataTimeToTest.FormatDate();
                 });
-
             $"Then the output is {expectedString}"
                 .x(() =>
                 {
@@ -88,7 +84,7 @@ namespace RecklassRekkids.GlobalRightsManagement.Tests.Extensions
 
         [Scenario]
         [MemberData(nameof(FormatNullableDateData))]
-        public void FormatNullableDate(DateTime? dataTimeToTest, string expectedString)
+        public void FormatNullableDateScenarios(DateTime? dataTimeToTest, string expectedString)
         {
             var actualString = string.Empty;
 
@@ -98,13 +94,14 @@ namespace RecklassRekkids.GlobalRightsManagement.Tests.Extensions
                 {
                     actualString = dataTimeToTest.FormatDate();
                 });
-
             $"Then the output is {expectedString}"
                 .x(() =>
                 {
                     actualString.Should().Be(expectedString);
                 });
         }
+
+        #region Data
 
         public static IEnumerable<object[]> TryParseDateData =>
            new List<object[]>
@@ -167,6 +164,6 @@ namespace RecklassRekkids.GlobalRightsManagement.Tests.Extensions
                 new object[] { null, "" }
             };
 
-
+        #endregion
     }
 }

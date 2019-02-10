@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using RecklassRekkids.GlobalRightsManagement.Extensions;
+using RecklassRekkids.GlobalRightsManagement.Filters;
 using RecklassRekkids.GlobalRightsManagement.Models;
 using RecklassRekkids.GlobalRightsManagement.Repositories;
 using RecklassRekkids.GlobalRightsManagement.Services;
@@ -29,7 +30,7 @@ namespace RecklassRekkids.GlobalRightsManagement
                         x.MusicContractsFileName = "./Data/MusicContracts.csv";
                         x.CsvCharacterSeparator = "|";
                     })
-                    .AddTransient<IProductService, ProductService>()
+                    .AddTransient<IProductService, ProductSearchService>()
                     .BuildServiceProvider();
 
             return new Application(sp);
@@ -41,13 +42,20 @@ namespace RecklassRekkids.GlobalRightsManagement
             var service = _serviceProvider.GetService<IProductService>();
             var fancyUI = _serviceProvider.GetService<IFancyUI>();
 
-            var filter = ProductFilterBuilder
-                .ParseCommand(searchTerm)
-                .Build();
+            try
+            {
+                var filter = ProductFilterBuilder
+                    .From(searchTerm)
+                    .Build();
 
-            var contracts = service.GetMusicContracts(filter);
+                var contracts = service.GetMusicContracts(filter);
 
-            fancyUI.Display(contracts);
+                fancyUI.Display(contracts);
+            }
+            catch(Exception ex)
+            {
+                fancyUI.DisplayError("An error has occured, please check your input and try again", ex);
+            }
             return this;
         }
     }
